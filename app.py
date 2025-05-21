@@ -34,18 +34,39 @@ st.markdown("""
 st.title("💎 Diamond Gemstone Price Prediction")
 st.subheader("⬅️ Enter diamond features at the side pane widgets to estimate its market value")
 
-# Sidebar input section
-st.sidebar.header("Input Diamond Parameters")
+def float_input_no_step(label, default="0.0"):
+    val = st.sidebar.text_input(label, default)
+    try:
+        fval = float(val)
+        st.sidebar.write(f"Value: {fval:.2f}")  # show formatted float
+        return fval
+    except ValueError:
+        st.sidebar.error(f"Please enter a valid number for {label}")
+        return 0.0
 
-carat = st.sidebar.number_input("Carat Weight", min_value=0.0, value=0.0, step=0.01, format="%.2f")
-cut = st.sidebar.number_input("Cut Quality", min_value=1, max_value=10, value=1, step=1)
-color = st.sidebar.number_input("Color", min_value=1, max_value=10, value=1, step=1)
-clarity = st.sidebar.number_input("Clarity", min_value=1, max_value=10, value=1, step=1)
-depth = st.sidebar.number_input("Depth (%)", min_value=0.0, value=0.0, step=0.1, format="%.2f")
-table = st.sidebar.number_input("Table (%)", min_value=0.0, value=0.0, step=0.1, format="%.2f")
-x = st.sidebar.number_input("X Dimension (mm)", min_value=0.0, value=0.0, step=0.01, format="%.2f")
-y = st.sidebar.number_input("Y Dimension (mm)", min_value=0.0, value=0.0, step=0.01, format="%.2f")
-z = st.sidebar.number_input("Z Dimension (mm)", min_value=0.0, value=0.0, step=0.01, format="%.2f")
+def int_input_no_step(label, default="1", min_val=1, max_val=10):
+    val = st.sidebar.text_input(label, default)
+    try:
+        ival = int(val)
+        if min_val <= ival <= max_val:
+            st.sidebar.write(f"Value: {ival}")  # show int value
+            return ival
+        else:
+            st.sidebar.error(f"Enter an integer between {min_val} and {max_val} for {label}")
+            return min_val
+    except ValueError:
+        st.sidebar.error(f"Please enter a valid integer for {label}")
+        return min_val
+
+carat = float_input_no_step("Carat Weight", "0.00")
+cut = int_input_no_step("Cut Quality", "1", 1, 10)
+color = int_input_no_step("Color", "1", 1, 10)
+clarity = int_input_no_step("Clarity", "1", 1, 10)
+depth = float_input_no_step("Depth (%)", "0.00")
+table = float_input_no_step("Table (%)", "0.00")
+x = float_input_no_step("X Dimension (mm)", "0.00")
+y = float_input_no_step("Y Dimension (mm)", "0.00")
+z = float_input_no_step("Z Dimension (mm)", "0.00")
 
 # Load the model
 try:
