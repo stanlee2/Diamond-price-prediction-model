@@ -1,8 +1,6 @@
 import streamlit as st
 import joblib
 import numpy as np
-from PIL import Image
-import os
 
 # Set the page configuration
 st.set_page_config(page_title="Diamond Gemstone Price Prediction", page_icon="💎", layout="centered")
@@ -35,12 +33,6 @@ st.markdown("""
 # Title and subtitle
 st.title("💎 Diamond Gemstone Price Prediction")
 st.subheader("⬅️ Enter diamond features at the side pane widgets to estimate its market value")
-
-# Load image if available
-image_path = "diamond_image.jpg"  # Replace with your actual image path or name
-if os.path.exists(image_path):
-    img = Image.open(image_path)
-    st.image(img, use_column_width=True)
 
 # Sidebar input section
 st.sidebar.header("Input Diamond Parameters")
